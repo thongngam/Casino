@@ -78,7 +78,7 @@ def plot_fig1():
     ax.set_xlim(0.5, 1.0)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure1.png", dpi=150)
+    plt.savefig("../figures/figure1.png", dpi=150)
     plt.close()
     print("Saved figure1.png")
 
@@ -114,7 +114,7 @@ def plot_fig2():
 
     fig.suptitle("Figure 2: f* vs p — Convergence to Kelly as S -> 1 (Power Utility)", fontsize=13)
     plt.tight_layout()
-    plt.savefig("figure2.png", dpi=150)
+    plt.savefig("../figures/figure2.png", dpi=150)
     plt.close()
     print("Saved figure2.png")
 
@@ -148,7 +148,7 @@ def plot_fig3():
     ax.set_xlim(0.5, 1.0)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure3.png", dpi=150)
+    plt.savefig("../figures/figure3.png", dpi=150)
     plt.close()
     print("Saved figure3.png")
 
@@ -182,7 +182,7 @@ def plot_fig4():
 
     fig.suptitle("Figure 4: f* vs p — Log Utility (Risk Neutral)", fontsize=13)
     plt.tight_layout()
-    plt.savefig("figure4.png", dpi=150)
+    plt.savefig("../figures/figure4.png", dpi=150)
     plt.close()
     print("Saved figure4.png")
 
@@ -215,7 +215,7 @@ def plot_fig5():
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure5.png", dpi=150)
+    plt.savefig("../figures/figure5.png", dpi=150)
     plt.close()
     print("Saved figure5.png")
 
@@ -246,7 +246,7 @@ def plot_fig6():
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure6.png", dpi=150)
+    plt.savefig("../figures/figure6.png", dpi=150)
     plt.close()
     print("Saved figure6.png")
 
@@ -278,7 +278,7 @@ def plot_fig7():
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure7.png", dpi=150)
+    plt.savefig("../figures/figure7.png", dpi=150)
     plt.close()
     print("Saved figure7.png")
 
@@ -320,7 +320,7 @@ def plot_fig8():
     ax.set_xlim(0.5, 1.0)
     ax.set_ylim(0, 1)
     plt.tight_layout()
-    plt.savefig("figure8.png", dpi=150)
+    plt.savefig("../figures/figure8.png", dpi=150)
     plt.close()
     print("Saved figure8.png")
 

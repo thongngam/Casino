@@ -124,6 +124,12 @@ The model is solved numerically with the following default parameters:
 
 **Setup:** Vary p from 0.5 to 1.0, fix S = 0.7, 0.9, 0.99. Log utility.
 
+![Figure 1: f* vs p (S=0.7)](../figures/figure1.png)
+*Figure 1: Risk-averse player (power utility). f* increases with p but stays below Kelly.*
+
+![Figure 2: f* vs p (S=0.9 and S=0.99)](../figures/figure2.png)
+*Figure 2: Convergence to Kelly as S → 1. Left: S=0.9. Right: S=0.99.*
+
 | p | Kelly | S=0.7 | S=0.9 | S=0.99 |
 |---|-------|-------|-------|--------|
 | 0.5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
@@ -142,6 +148,15 @@ The model is solved numerically with the following default parameters:
 
 **Setup:** Vary S from 0.3 to 0.99, p = 0.6, initial wealth m₀ = 100.
 
+![Figure 5: f* vs S (power utility)](../figures/figure5.png)
+*Figure 5: Risk-averse player. f* drops convexly as S increases.*
+
+![Figure 6: f* vs S (power utility, m0=10000)](../figures/figure6.png)
+*Figure 6: Same as Figure 5 with m₀=10,000 — identical results.*
+
+![Figure 7: f* vs S (log utility)](../figures/figure7.png)
+*Figure 7: Risk-neutral player. Smoother drop than risk-averse case.*
+
 | S | Log (risk neutral) | Power (risk averse) | Risk Lover | Kelly |
 |---|-------------------|--------------------|-----------| ------|
 | 0.30 | 0.4068 | 0.7627 | 1.0000 | 0.2000 |
@@ -158,13 +173,19 @@ The model is solved numerically with the following default parameters:
 
 ### 5.3 Effect of Utility Function
 
+![Figure 8: Risk Preference Comparison](../figures/figure8.png)
+*Figure 8: Direct comparison of all three risk types at S=0.9.*
+
 - **U(x) = 2√x** (risk averse): Bets less than the risk lover but more than the log utility player. Sensitive to S.
 - **U(x) = log(x)** (risk neutral / Kelly utility): Most conservative; bets closest to Kelly for moderate S.
 - **U(x) = x²/2** (risk lover): Bets everything (f*=1) in almost all scenarios with p > 0.5. The convex utility amplifies the appeal of high-variance outcomes.
 
 ### 5.4 Robustness to Initial Wealth
 
-The optimal betting fraction is **independent** of initial wealth. Setting m₀ = 100 or m₀ = 10,000 produces identical f* values (see Figure 3).
+![Figure 3: Wealth Robustness](../figures/figure3.png)
+*Figure 3: f* is identical for m₀=100 and m₀=10,000 — wealth level doesn't matter.*
+
+The optimal betting fraction is **independent** of initial wealth. Setting m₀ = 100 or m₀ = 10,000 produces identical f* values.
 
 ---
 
@@ -178,12 +199,23 @@ In the simplest version of the model (without utility function smoothing), the o
 
 ```
 Casino/
-├── architecture.md          # This file — full model documentation
-├── casino model.pdf         # Original mathematical model writeup
-├── Vt(x)_plots.pdf          # Presentation/poster with plots and results
-├── README.md                # Quick-start guide
-├── model.py                 # Numerical solver for the dynamic program
-└── plots.py                 # Script to generate all figures
+├── README.md                          # Quick-start guide with results
+├── docs/
+│   ├── architecture.md                # This file — full model documentation
+│   ├── casino model.pdf               # Original mathematical model writeup
+│   └── Vt(x)_plots.pdf               # Presentation/poster with plots
+├── src/
+│   ├── model.py                       # Numerical DP solver
+│   └── plots.py                       # Script to generate all figures
+└── figures/
+    ├── figure1.png                    # f* vs p (S=0.7, risk averse)
+    ├── figure2.png                    # f* vs p (S=0.9 & 0.99, Kelly convergence)
+    ├── figure3.png                    # f* vs p (wealth robustness)
+    ├── figure4.png                    # f* vs p (log utility, 3 panels)
+    ├── figure5.png                    # f* vs S (risk averse, m0=100)
+    ├── figure6.png                    # f* vs S (risk averse, m0=10000)
+    ├── figure7.png                    # f* vs S (log utility)
+    └── figure8.png                    # All 3 risk types compared
 ```
 
 ---
