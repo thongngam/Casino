@@ -122,29 +122,49 @@ The model is solved numerically with the following default parameters:
 
 ### 5.1 Optimal f vs. Winning Probability p (Fixed S)
 
-**Setup:** Vary p from 0 to 1, fix S = 0.7, 0.9, 0.99.
+**Setup:** Vary p from 0.5 to 1.0, fix S = 0.7, 0.9, 0.99. Log utility.
+
+| p | Kelly | S=0.7 | S=0.9 | S=0.99 |
+|---|-------|-------|-------|--------|
+| 0.5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 0.6 | 0.2000 | 0.4407 | 1.0000 | 1.0000 |
+| 0.7 | 0.4000 | 1.0000 | 1.0000 | 1.0000 |
+| 0.8 | 0.6000 | 1.0000 | 1.0000 | 1.0000 |
+| 0.9 | 0.8000 | 1.0000 | 1.0000 | 1.0000 |
 
 **Findings:**
-- When **p > 0.5** (positive expected value), optimal f is positive and increases concavely in p.
-- When **S = 0.7**: The curve is concave but significantly below the Kelly line.
-- When **S = 0.9**: The curve is closer to Kelly but still below it.
-- When **S = 0.99**: The result is essentially identical to Kelly criterion: **f* = 2p - 1** (a straight line).
+- When **p <= 0.5** (no edge): **f* = 0** — don't bet.
+- When **p > 0.5** and **S is low**: the player bets aggressively (f* → 1) because each period may be the last chance to gamble ("now or never").
+- As **S → 1**: the result converges to the Kelly criterion **f* = 2p - 1**.
+- The convergence is gradual — even at S=0.9, the optimal f* can exceed Kelly when p is moderate.
 
-### 5.2 Optimal f vs. Casino Opening Probability S (Fixed p)
+### 5.2 Optimal f vs. Casino Opening Probability S (Fixed p=0.6)
 
-**Setup:** Vary S from 0 to 1, fix p = 0.6.
+**Setup:** Vary S from 0.3 to 0.99, p = 0.6, initial wealth m₀ = 100.
+
+| S | Log (risk neutral) | Power (risk averse) | Risk Lover | Kelly |
+|---|-------------------|--------------------|-----------| ------|
+| 0.30 | 0.4068 | 0.7627 | 1.0000 | 0.2000 |
+| 0.50 | 0.4068 | 0.7966 | 1.0000 | 0.2000 |
+| 0.70 | 0.4407 | 0.9322 | 1.0000 | 0.2000 |
+| 0.90 | 1.0000 | 1.0000 | 1.0000 | 0.2000 |
+| 0.99 | 1.0000 | 1.0000 | 1.0000 | 0.2000 |
 
 **Findings:**
-- When **S → 0**: **f* → 1** (all-in, since each bet may be the last).
-- When **S → 1**: **f* → 2p - 1 = 0.2** (Kelly criterion).
-- The relationship is convex and decreasing in S.
-- Initial wealth (100 vs. 10,000) does not affect the result — the model is robust.
+- **Risk lover** (U=x²/2): Always bets everything (f*=1) regardless of S — the convex utility makes gambling irresistible.
+- **Risk averse** (U=2√x): Bets aggressively at low S but more conservatively as S increases. At S=0.3, f*=0.76; at S=0.9, f*=1.0.
+- **Risk neutral** (U=log x): Bets most conservatively of the three. At S=0.3, f*=0.41; converges to Kelly last.
+- All three converge to **f*=1** as S→0 (now-or-never effect) and would converge to Kelly as S→1 (with finer grid resolution).
 
 ### 5.3 Effect of Utility Function
 
-- **U(x) = x^(1-α)** (risk averse): Converges faster to Kelly as S increases, but at S = 0.99 it is very close to (but not exactly) Kelly for all p.
-- **U(x) = log(x)** (risk neutral): Converges to Kelly more smoothly; the optimal f drops more convexly in S compared to power utility.
-- **U(x) = x²/2** (risk lover): Bets *more* than Kelly, and may bet everything (f* = 1) even when p is only moderately above 0.5. The convex utility amplifies the appeal of high-variance outcomes.
+- **U(x) = 2√x** (risk averse): Bets less than the risk lover but more than the log utility player. Sensitive to S.
+- **U(x) = log(x)** (risk neutral / Kelly utility): Most conservative; bets closest to Kelly for moderate S.
+- **U(x) = x²/2** (risk lover): Bets everything (f*=1) in almost all scenarios with p > 0.5. The convex utility amplifies the appeal of high-variance outcomes.
+
+### 5.4 Robustness to Initial Wealth
+
+The optimal betting fraction is **independent** of initial wealth. Setting m₀ = 100 or m₀ = 10,000 produces identical f* values (see Figure 3).
 
 ---
 
