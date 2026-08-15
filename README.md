@@ -10,6 +10,14 @@ A player gambles at a casino that opens with probability **S** each period. The 
 
 As the casino opening probability **S → 1**, the optimal betting fraction converges to the **Kelly criterion**: `f* = 2p - 1`, where `p` is the probability of winning a gamble.
 
+## Utility Functions
+
+| Type | Function | Shape | Behavior |
+|------|----------|-------|----------|
+| Risk Averse | `U(x) = 2√x` | Concave | Bets less than Kelly |
+| Risk Neutral | `U(x) = log(x)` | Concave | Bets close to Kelly |
+| Risk Lover | `U(x) = x²/2` | Convex | Bets more than Kelly |
+
 ## Files
 
 | File | Description |

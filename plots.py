@@ -9,6 +9,7 @@ Produces:
   Figure 5: f* vs S (p=0.6, power utility, m0=100)
   Figure 6: f* vs S (p=0.6, power utility, m0=10000)
   Figure 7: f* vs S (p=0.6, log utility)
+  Figure 8: f* vs p — comparison of all utility types (risk lover, risk neutral, risk averse)
 """
 
 import numpy as np
@@ -184,6 +185,32 @@ def plot_fig7():
     print("Saved figure7.png")
 
 
+def plot_fig8():
+    """Figure 8: f* vs p — risk lover vs risk averse vs Kelly, S=0.9."""
+    p_vals = np.linspace(0.5, 1.0, 25)
+    f_risk_lover = sweep_f_vs_p(0.9, p_vals, "risk_lover", g=0.5, m0=100, T=30, n_grid=200, n_f=60)
+    f_risk_averse = sweep_f_vs_p(0.9, p_vals, "power", g=0.5, m0=100, T=30, n_grid=200, n_f=60)
+    f_log = sweep_f_vs_p(0.9, p_vals, "log", g=0.5, m0=100, T=30, n_grid=200, n_f=60)
+    kelly = [kelly_criterion(p) for p in p_vals]
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.plot(p_vals, f_risk_lover, "m-^", label="Risk Lover (U=x^2)", markersize=5)
+    ax.plot(p_vals, f_log, "g-s", label="Risk Neutral (U=log x)", markersize=5)
+    ax.plot(p_vals, f_risk_averse, "b-o", label="Risk Averse (U=sqrt(x))", markersize=5)
+    ax.plot(p_vals, kelly, "r--", label="Kelly criterion (2p-1)", linewidth=2)
+    ax.set_xlabel("Gambling winning probability p")
+    ax.set_ylabel("Optimal betting fraction f*")
+    ax.set_title("Figure 8: Risk Preference Comparison (S=0.9)")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    ax.set_xlim(0.5, 1.0)
+    ax.set_ylim(0, 1)
+    plt.tight_layout()
+    plt.savefig("figure8.png", dpi=150)
+    plt.close()
+    print("Saved figure8.png")
+
+
 if __name__ == "__main__":
     print("Generating all figures...\n")
     plot_fig1()
@@ -193,4 +220,5 @@ if __name__ == "__main__":
     plot_fig5()
     plot_fig6()
     plot_fig7()
+    plot_fig8()
     print("\nAll figures generated!")

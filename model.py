@@ -11,6 +11,11 @@ def utility_log(x):
     return np.log(x)
 
 
+def utility_risk_lover(x, alpha=2.0):
+    """Risk lover utility: U(x) = x^alpha / alpha (convex, alpha > 1)."""
+    return x ** alpha / alpha
+
+
 def interp(V_prev, wealth_grid, m_val):
     """Vectorized linear interpolation of V_prev at points m_val."""
     idx = np.searchsorted(wealth_grid, m_val) - 1
@@ -29,6 +34,8 @@ def solve_dp(p, S, g, m0, T, utility="log", n_grid=300, m_max_factor=3.0, n_f=80
         U = utility_log
     elif utility == "power":
         U = lambda x: utility_power(x, alpha=0.5)
+    elif utility == "risk_lover":
+        U = lambda x: utility_risk_lover(x, alpha=2.0)
     else:
         raise ValueError(f"Unknown utility: {utility}")
 
@@ -94,12 +101,15 @@ if __name__ == "__main__":
     print()
 
     f_log, _, _ = solve_dp(utility="log", **params)
-    print(f"Optimal f (log utility):   {f_log:.4f}")
+    print(f"Optimal f (log utility):      {f_log:.4f}")
 
     f_power, _, _ = solve_dp(utility="power", **params)
-    print(f"Optimal f (power utility): {f_power:.4f}")
+    print(f"Optimal f (power utility):    {f_power:.4f}")
 
-    print(f"Kelly criterion f*:        {kelly_criterion(params['p']):.4f}")
+    f_risk, _, _ = solve_dp(utility="risk_lover", **params)
+    print(f"Optimal f (risk lover):       {f_risk:.4f}")
+
+    print(f"Kelly criterion f*:           {kelly_criterion(params['p']):.4f}")
 
     print("\n" + "=" * 60)
     print("Sweep: f* vs p for different S values")

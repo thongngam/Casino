@@ -62,15 +62,21 @@ The player chooses **f** to maximize expected utility over the remaining periods
 
 ## 2. Utility Functions
 
-Two utility functions **U(·)** are studied to see how risk preferences affect the optimal strategy:
+Three utility functions **U(·)** are studied to see how risk preferences affect the optimal strategy:
 
-### Case 1: Power Utility — U(x) = x^(1-α) / (1-α)
+### Case 1: Power Utility (Risk Averse) — U(x) = x^(1-α) / (1-α)
 
-For α = 0.5, this becomes **U(x) = 2√x**, which is concave and represents a risk-averse investor. This is a CRRA (Constant Relative Risk Aversion) utility function.
+For α = 0.5, this becomes **U(x) = 2√x**, which is concave and represents a **risk-averse** investor. This is a CRRA (Constant Relative Risk Aversion) utility function. The player prefers safe outcomes and bets less aggressively.
 
-### Case 2: Log Utility — U(x) = log(x)
+### Case 2: Log Utility (Risk Neutral) — U(x) = log(x)
 
-The logarithmic utility function, which is the standard Kelly criterion utility. It is also concave and represents a specific degree of risk aversion.
+The logarithmic utility function, which is the standard Kelly criterion utility. It is concave and represents a **risk-neutral** (or mildly risk-averse) investor who maximizes long-run geometric growth.
+
+### Case 3: Risk Lover Utility — U(x) = x^α / α (α > 1)
+
+For α = 2, this becomes **U(x) = x² / 2**, which is **convex** and represents a **risk-loving** investor. Unlike the other cases, this player *prefers* risky gambles over safe outcomes. The convex shape means that the marginal utility of wealth *increases* with wealth — the player values additional gains more and more as they get richer.
+
+**Key difference:** Risk-averse players (Cases 1–2) bet *less* than Kelly, while a risk lover bets *more* than Kelly (or even everything), because they enjoy the variance itself.
 
 ---
 
@@ -136,8 +142,9 @@ The model is solved numerically with the following default parameters:
 
 ### 5.3 Effect of Utility Function
 
-- **U(x) = x^(1-α)** (power utility): Converges faster to Kelly as S increases, but at S = 0.99 it is very close to (but not exactly) Kelly for all p.
-- **U(x) = log(x)** (log utility): Converges to Kelly more smoothly; the optimal f drops more convexly in S compared to power utility.
+- **U(x) = x^(1-α)** (risk averse): Converges faster to Kelly as S increases, but at S = 0.99 it is very close to (but not exactly) Kelly for all p.
+- **U(x) = log(x)** (risk neutral): Converges to Kelly more smoothly; the optimal f drops more convexly in S compared to power utility.
+- **U(x) = x²/2** (risk lover): Bets *more* than Kelly, and may bet everything (f* = 1) even when p is only moderately above 0.5. The convex utility amplifies the appeal of high-variance outcomes.
 
 ---
 
